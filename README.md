@@ -29,5 +29,5 @@ git clone https://github.com/omkarsnagre/EduTrack.git
 ## 📩 Contact  
 💻 Developed by **Omkar Nagre**  
 📧 Email: [omkarnagre777@gmail.com](mailto:omkarnagre777@gmail.com)  
-🔗 GitHub: [Your GitHub Profile](https://github.com/omkarsnagre)  
+🔗 GitHub: [github.com](https://github.com/omkarsnagre)  
 
