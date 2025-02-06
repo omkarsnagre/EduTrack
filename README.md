@@ -25,3 +25,9 @@ EduTrack is a **student grade management system** designed to help teachers effi
 ### **1️⃣ Clone the Repository**
 ```bash
 git clone https://github.com/omkarsnagre/EduTrack.git
+
+## 📩 Contact  
+💻 Developed by **Omkar Nagre**  
+📧 Email: [omkarnagre777@gmail.com](mailto:omkarnagre777@gmail.com)  
+🔗 GitHub: [Your GitHub Profile](https://github.com/omkarsnagre)  
+
