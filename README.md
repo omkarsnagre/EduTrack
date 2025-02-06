@@ -1,6 +1,6 @@
 # 🎓 EduTrack – Student Grade Management System  
 
-![GitHub Repo Stars](https://img.shields.io/github/stars/yourusername/EduTrack?style=social)  
+![GitHub Repo Stars](https://img.shields.io/github/stars/omkarsnagre/EduTrack?style=social)  
 📌 **Technologies:** Java, JDBC, MySQL, iText PDF, IntelliJ IDEA  
 
 ## 🚀 Project Overview  
@@ -24,4 +24,4 @@ EduTrack is a **student grade management system** designed to help teachers effi
 
 ### **1️⃣ Clone the Repository**
 ```bash
-git clone https://github.com/yourusername/EduTrack.git
+git clone https://github.com/omkarsnagre/EduTrack.git
