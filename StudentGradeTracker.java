@@ -15,15 +15,15 @@ public class StudentGradeTracker {
 
         try (Connection conn = DatabaseConnection.getConnection()) {
             if (conn == null) {
-                System.out.println("❌ Unable to connect to the database.");
+                System.out.println("Unable to connect to the database.");
                 return;
             }
 
-            System.out.println("📚 Connected to MySQL Database!");
+            System.out.println("Connected to MySQL Database!");
             createTableIfNotExists(conn);
 
             while (true) {
-                System.out.println("\n📌 MENU:");
+                System.out.println("\n MENU:");
                 System.out.println("1. Add Student Grade");
                 System.out.println("2. View All Grades (Sorted)");
                 System.out.println("3. Update Student Grade");
@@ -59,12 +59,12 @@ public class StudentGradeTracker {
                         System.out.println("Exiting...");
                         return;
                     default:
-                        System.out.println("❌ Invalid choice. Try again.");
+                        System.out.println("Invalid choice. Try again.");
                 }
             }
 
         } catch (SQLException e) {
-            System.out.println("⚠️ Database Error: " + e.getMessage());
+            System.out.println("Database Error: " + e.getMessage());
         }
 
         scanner.close();
@@ -78,7 +78,7 @@ public class StudentGradeTracker {
         try (Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
         } catch (SQLException e) {
-            System.out.println("⚠️ Error creating table: " + e.getMessage());
+            System.out.println("Error creating table: " + e.getMessage());
         }
     }
     private static void addStudentGrade(Connection conn, Scanner scanner) {
@@ -88,14 +88,14 @@ public class StudentGradeTracker {
 
             System.out.print("Enter Grade (0-100): ");
             while (!scanner.hasNextDouble()) {
-                System.out.println("⚠️ Invalid input! Please enter a valid number.");
+                System.out.println("Invalid input! Please enter a valid number.");
                 scanner.next();
             }
             double grade = scanner.nextDouble();
             scanner.nextLine();
 
             if (grade < 0 || grade > 100) {
-                System.out.println("⚠️ Invalid grade! Must be between 0 and 100.");
+                System.out.println("Invalid grade! Must be between 0 and 100.");
                 continue;
             }
 
@@ -104,9 +104,9 @@ public class StudentGradeTracker {
                 pstmt.setString(1, studentName);
                 pstmt.setDouble(2, grade);
                 pstmt.executeUpdate();
-                System.out.println("✅ Grade added successfully!\n");
+                System.out.println("Grade added successfully!\n");
             } catch (SQLException e) {
-                System.out.println("⚠️ Error adding grade: " + e.getMessage());
+                System.out.println("Error adding grade: " + e.getMessage());
             }
 
             while (true) {
@@ -117,7 +117,7 @@ public class StudentGradeTracker {
                 String choice = scanner.nextLine().trim();
                 if (choice.equals("1")) break;
                 if (choice.equals("2")) return;
-                System.out.println("❌ Invalid choice. Please enter 1 or 2.");
+                System.out.println("Invalid choice. Please enter 1 or 2.");
             }
         }
     }
@@ -125,13 +125,13 @@ public class StudentGradeTracker {
 
 
     private static void viewAllGrades(Connection conn) {
-        String sql = "SELECT * FROM grades";  // ✅ No Sorting (Maintains Entry Order)
+        String sql = "SELECT * FROM grades";  
         String statsSql = "SELECT MAX(grade) AS highest, MIN(grade) AS lowest, AVG(grade) AS average FROM grades";
 
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
-            System.out.println("\n📊 Student Grades:");
+            System.out.println("\nStudent Grades:");
             System.out.println("-------------------------------------------------");
 
             while (rs.next()) {
@@ -140,18 +140,16 @@ public class StudentGradeTracker {
             }
 
             System.out.println("-------------------------------------------------");
-
-            // ✅ Display Grade Statistics (Highest, Lowest, Average)
             try (Statement statsStmt = conn.createStatement();
                  ResultSet statsRs = statsStmt.executeQuery(statsSql)) {
                 if (statsRs.next()) {
-                    System.out.printf("🏆 Highest Grade: %.2f\n📉 Lowest Grade: %.2f\n📊 Average Grade: %.2f\n",
+                    System.out.printf("Highest Grade: %.2f\n Lowest Grade: %.2f\n Average Grade: %.2f\n",
                             statsRs.getDouble("highest"), statsRs.getDouble("lowest"), statsRs.getDouble("average"));
                 }
             }
 
         } catch (SQLException e) {
-            System.out.println("⚠️ Error retrieving grades: " + e.getMessage());
+            System.out.println("Error retrieving grades: " + e.getMessage());
         }
     }
 
@@ -171,19 +169,19 @@ public class StudentGradeTracker {
             int rowsUpdated = pstmt.executeUpdate();
 
             if (rowsUpdated > 0) {
-                System.out.println("✅ Grade updated successfully!");
+                System.out.println(" Grade updated successfully!");
             } else {
-                System.out.println("❌ Student ID not found.");
+                System.out.println("Student ID not found.");
             }
         } catch (SQLException e) {
-            System.out.println("⚠️ Error updating grade: " + e.getMessage());
+            System.out.println(" Error updating grade: " + e.getMessage());
         }
     }
 
     private static void deleteStudentRecord(Connection conn, Scanner scanner) {
         System.out.print("Enter Student ID to delete: ");
         while (!scanner.hasNextInt()) {
-            System.out.println("⚠️ Invalid input! Please enter a valid Student ID.");
+            System.out.println(" Invalid input! Please enter a valid Student ID.");
             scanner.next();
         }
         int id = scanner.nextInt();
@@ -195,12 +193,12 @@ public class StudentGradeTracker {
             int rowsDeleted = pstmt.executeUpdate();
 
             if (rowsDeleted > 0) {
-                System.out.println("✅ Student record deleted successfully!");
+                System.out.println(" Student record deleted successfully!");
             } else {
-                System.out.println("❌ Student ID not found.");
+                System.out.println(" Student ID not found.");
             }
         } catch (SQLException e) {
-            System.out.println("⚠️ Error deleting record: " + e.getMessage());
+            System.out.println(" Error deleting record: " + e.getMessage());
         }
     }
 
@@ -224,10 +222,10 @@ public class StudentGradeTracker {
                         rs.getInt("id"), rs.getString("student_name"), rs.getDouble("grade"));
             }
             if (!found) {
-                System.out.println("❌ No student found.");
+                System.out.println(" No student found.");
             }
         } catch (SQLException e) {
-            System.out.println("⚠️ Error searching student: " + e.getMessage());
+            System.out.println(" Error searching student: " + e.getMessage());
         }
     }
 
@@ -235,13 +233,13 @@ public class StudentGradeTracker {
 
 
     private static void generateStudentReport(Connection conn) {
-        String sql = "SELECT * FROM grades";  // ✅ No Sorting (Maintains Entry Order)
+        String sql = "SELECT * FROM grades"; 
         String statsSql = "SELECT MAX(grade) AS highest, MIN(grade) AS lowest, AVG(grade) AS average FROM grades";
 
         try {
-            System.out.println("\n📄 Generating Student Report...");
+            System.out.println("\n Generating Student Report...");
 
-            // ✅ Create a PDF Document
+            
             Document document = new Document();
             String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
             String fileName = "Student_Report_" + timestamp + ".pdf";
@@ -249,18 +247,18 @@ public class StudentGradeTracker {
 
             document.open();
 
-            // ✅ Add Title
+            
             Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLACK);
-            Paragraph title = new Paragraph("📚 Student Grades Report\n\n", titleFont);
+            Paragraph title = new Paragraph(" Student Grades Report\n\n", titleFont);
             title.setAlignment(Element.ALIGN_CENTER);
             document.add(title);
 
-            // ✅ Add Console Output to PDF
-            System.out.println("\n📊 Student Grades:");
+           
+            System.out.println("\n Student Grades:");
             System.out.println("-------------------------------------------------");
 
-            // ✅ Create a Table in PDF (Matching Console Output)
-            PdfPTable table = new PdfPTable(3); // 3 columns (ID, Name, Grade)
+    
+            PdfPTable table = new PdfPTable(3); 
             table.setWidthPercentage(100);
             table.addCell("ID");
             table.addCell("Student Name");
@@ -274,10 +272,10 @@ public class StudentGradeTracker {
                     String name = rs.getString("student_name");
                     double grade = rs.getDouble("grade");
 
-                    // ✅ Display in Console
+                   
                     System.out.printf("ID: %d | Name: %s | Grade: %.2f\n", id, name, grade);
 
-                    // ✅ Add to PDF Table
+              
                     table.addCell(String.valueOf(id));
                     table.addCell(name);
                     table.addCell(String.format("%.2f", grade));
@@ -287,7 +285,7 @@ public class StudentGradeTracker {
             System.out.println("-------------------------------------------------");
             document.add(table);
 
-            // ✅ Add Grade Statistics (Console + PDF)
+          
             try (Statement statsStmt = conn.createStatement();
                  ResultSet statsRs = statsStmt.executeQuery(statsSql)) {
                 if (statsRs.next()) {
@@ -295,23 +293,23 @@ public class StudentGradeTracker {
                     double lowest = statsRs.getDouble("lowest");
                     double average = statsRs.getDouble("average");
 
-                    // ✅ Display in Console
-                    System.out.printf("🏆 Highest Grade: %.2f\n📉 Lowest Grade: %.2f\n📊 Average Grade: %.2f\n", highest, lowest, average);
+                   
+                    System.out.printf(" Highest Grade: %.2f\n Lowest Grade: %.2f\n Average Grade: %.2f\n", highest, lowest, average);
 
-                    // ✅ Add to PDF
+                   
                     document.add(new Paragraph("\n-------------------------------------------------"));
                     document.add(new Paragraph(String.format(
-                            "🏆 Highest Grade: %.2f\n📉 Lowest Grade: %.2f\n📊 Average Grade: %.2f",
+                            " Highest Grade: %.2f\n Lowest Grade: %.2f\n Average Grade: %.2f",
                             highest, lowest, average
                     )));
                 }
             }
 
             document.close();
-            System.out.println("✅ Report saved successfully as '" + fileName + "'!");
+            System.out.println(" Report saved successfully as '" + fileName + "'!");
 
         } catch (Exception e) {
-            System.out.println("⚠️ Error generating PDF report: " + e.getMessage());
+            System.out.println(" Error generating PDF report: " + e.getMessage());
         }
     }
 
