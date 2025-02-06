@@ -22,7 +22,7 @@ EduTrack is a **student grade management system** designed to help teachers effi
 
 ## 🛠 Installation & Setup  
 
-### **1️⃣ Clone the Repository**
+### **Clone the Repository**
 ```bash
 git clone https://github.com/omkarsnagre/EduTrack.git
 ```
